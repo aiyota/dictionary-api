@@ -14,7 +14,11 @@ assert(DB_USERNAME, "DB_USERNAME is not present in .env file");
 assert(DB_PASSWORD, "DB_PASSWORD is not present in .env file");
 assert(DB_DATABASE, "DB_DATABASE is not present in .env file");
 
-const db: TypeOrmModuleOptions = {
+type Config = {
+  db: TypeOrmModuleOptions;
+};
+
+const db: TypeOrmModuleOptions = Object.freeze({
   type: "mysql",
   host: DB_HOST,
   port: +DB_PORT,
@@ -23,8 +27,10 @@ const db: TypeOrmModuleOptions = {
   database: DB_DATABASE,
   autoLoadEntities: true,
   synchronize: true,
-};
+});
 
-export default Object.freeze({
+const config: Config = Object.freeze({
   db,
 });
+
+export default config;
