@@ -1,4 +1,4 @@
-import { PartOfSpeech } from "src/part-of-speech/part-of-speech.entity";
+import { PartOfSpeech } from "../part-of-speech/part-of-speech.entity";
 import { EntityRepository, Repository } from "typeorm";
 import { Word } from "./word.entity";
 

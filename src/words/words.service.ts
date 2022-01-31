@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { PartOfSpeech } from "src/part-of-speech/part-of-speech.entity";
+import { PartOfSpeech } from "../part-of-speech/part-of-speech.entity";
 import { Word } from "./word.entity";
 import { WordsRepository } from "./words.repository";
 
