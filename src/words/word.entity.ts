@@ -8,6 +8,7 @@ export class Word {
   @Column()
   word: string;
 
+  @Column()
   partOfSpeech: string;
 
   definitions: string[];

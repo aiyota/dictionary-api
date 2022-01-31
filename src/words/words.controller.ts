@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
 import { Word } from "./word.entity";
+import { WordsService } from "./words.service";
 
 @Controller("words")
 export class WordsController {
@@ -11,25 +12,28 @@ export class WordsController {
     ],
   };
 
+  constructor(private wordsService: WordsService) {}
+
   @Get()
-  words(): any {
-    return this.mockWords.words;
+  words(): Promise<Word[]> {
+    return this.wordsService.getWords();
   }
 
   @Get("/:id")
-  word(@Param("id") id: string): any {
-    const word = this.mockWords.words.find((w) => w.id === +id);
-    if (!word) return { message: "word not found" };
-    return word;
+  word(@Param("id") id: string): Promise<Word> {
+    return this.wordsService.getWord(id);
   }
 
   @Post()
-  createWord(@Body("word") word: string): any {
-    console.log({ word });
+  createWord(
+    @Body("word") word: string,
+    @Body("partOfSpeech") partOfSpeech: string,
+  ): Promise<Word> {
+    return this.wordsService.createWord(word, partOfSpeech);
   }
 
   @Delete("/:id")
-  deleteWord(@Param("id") id: string): any {
-    console.log(`Deleting word with id of ${id}`);
+  deleteWord(@Param("id") id: string): Promise<Word> {
+    return this.wordsService.deleteWord(id);
   }
 }
