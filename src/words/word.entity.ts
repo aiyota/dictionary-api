@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { PartOfSpeech } from "src/part-of-speech/part-of-speech.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Word {
@@ -8,8 +9,10 @@ export class Word {
   @Column()
   word: string;
 
-  @Column()
-  partOfSpeech: string;
+  @ManyToOne((_type) => PartOfSpeech, (partOfSpeech) => partOfSpeech.id, {
+    eager: true,
+  })
+  partOfSpeech: PartOfSpeech;
 
   definitions: string[];
 }

@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
+import { PartOfSpeech } from "src/part-of-speech/part-of-speech.entity";
 import { Word } from "./word.entity";
 import { WordsService } from "./words.service";
 
@@ -27,7 +28,7 @@ export class WordsController {
   @Post()
   createWord(
     @Body("word") word: string,
-    @Body("partOfSpeech") partOfSpeech: string,
+    @Body("partOfSpeech") partOfSpeech: PartOfSpeech,
   ): Promise<Word> {
     return this.wordsService.createWord(word, partOfSpeech);
   }

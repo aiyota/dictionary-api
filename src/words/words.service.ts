@@ -1,4 +1,5 @@
 import { Injectable } from "@nestjs/common";
+import { PartOfSpeech } from "src/part-of-speech/part-of-speech.entity";
 import { Word } from "./word.entity";
 import { WordsRepository } from "./words.repository";
 
@@ -14,7 +15,7 @@ export class WordsService {
     return this.wordsRepository.findOne({ id });
   }
 
-  createWord(word: string, partOfSpeech: string): Promise<Word> {
+  createWord(word: string, partOfSpeech: PartOfSpeech): Promise<Word> {
     return this.wordsRepository.createWord(word, partOfSpeech);
   }
 
