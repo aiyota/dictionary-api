@@ -20,6 +20,7 @@ export class Word {
 
   @ManyToOne((_type) => PartOfSpeech, (partOfSpeech) => partOfSpeech.id, {
     eager: true,
+    onDelete: "SET NULL",
   })
   partOfSpeech: PartOfSpeech;
 
