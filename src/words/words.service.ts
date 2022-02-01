@@ -3,6 +3,7 @@ import { makeRecord } from "../utils";
 import { PartOfSpeech } from "../part-of-speech/part-of-speech.entity";
 import { Word } from "./word.entity";
 import { WordsRepository } from "./words.repository";
+import CreateWordDto from "./dto/create-word.dto";
 
 @Injectable()
 export class WordsService {
@@ -20,20 +21,19 @@ export class WordsService {
     return this.wordsRepository.searchWord(search);
   }
 
-  createWord(
-    word: string,
-    partOfSpeech: PartOfSpeech,
-    etymology: string,
-  ): Promise<Word> {
-    return this.wordsRepository.createWord(word, partOfSpeech, etymology);
+  createWord(createWordDto: CreateWordDto): Promise<Word> {
+    return this.wordsRepository.createWord(createWordDto);
   }
 
-  async editWord({ id, word, partOfSpeech, etymology }): Promise<Word> {
+  async editWord({ id, editWordDto }): Promise<Word> {
+    const { word, partOfSpeech, etymology } = editWordDto;
+
     await this.wordsRepository.update(
       id,
       makeRecord({ word, partOfSpeech, etymology }),
     );
     const editedWord = await this.wordsRepository.findOne({ id });
+    if (!editedWord) throw new Error(`Word with id of ${id} does not exist`);
 
     return editedWord;
   }

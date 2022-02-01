@@ -8,6 +8,8 @@ import {
   Post,
 } from "@nestjs/common";
 import { PartOfSpeech } from "../part-of-speech/part-of-speech.entity";
+import CreateWordDto from "./dto/create-word.dto";
+import EditWordDto from "./dto/edit-word.dto";
 import { Word } from "./word.entity";
 import { WordsService } from "./words.service";
 
@@ -31,22 +33,13 @@ export class WordsController {
   }
 
   @Post()
-  createWord(
-    @Body("word") word: string,
-    @Body("partOfSpeech") partOfSpeech: PartOfSpeech,
-    @Body("etymology") etymology: string,
-  ): Promise<Word> {
-    return this.wordsService.createWord(word, partOfSpeech, etymology);
+  createWord(@Body() createWordDto: CreateWordDto): Promise<Word> {
+    return this.wordsService.createWord(createWordDto);
   }
 
   @Patch("/:id")
-  editWord(
-    @Param("id") id: string,
-    @Body("word") word: string,
-    @Body("partOfSpeech") partOfSpeech: PartOfSpeech,
-    @Body("etymology") etymology: string,
-  ) {
-    return this.wordsService.editWord({ id, word, partOfSpeech, etymology });
+  editWord(@Param("id") id: string, @Body() editWordDto: EditWordDto) {
+    return this.wordsService.editWord({ id, editWordDto });
   }
 
   @Delete("/:id")
