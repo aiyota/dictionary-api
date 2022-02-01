@@ -13,14 +13,6 @@ import { WordsService } from "./words.service";
 
 @Controller("words")
 export class WordsController {
-  mockWords = {
-    words: [
-      { id: 1, word: "ranch" },
-      { id: 2, word: "car" },
-      { id: 3, word: "keyboard" },
-    ],
-  };
-
   constructor(private wordsService: WordsService) {}
 
   @Get()
