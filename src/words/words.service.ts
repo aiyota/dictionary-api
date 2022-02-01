@@ -1,4 +1,5 @@
 import { Injectable } from "@nestjs/common";
+import { makeRecord } from "../utils";
 import { PartOfSpeech } from "../part-of-speech/part-of-speech.entity";
 import { Word } from "./word.entity";
 import { WordsRepository } from "./words.repository";
@@ -25,6 +26,16 @@ export class WordsService {
     etymology: string,
   ): Promise<Word> {
     return this.wordsRepository.createWord(word, partOfSpeech, etymology);
+  }
+
+  async editWord({ id, word, partOfSpeech, etymology }): Promise<Word> {
+    await this.wordsRepository.update(
+      id,
+      makeRecord({ word, partOfSpeech, etymology }),
+    );
+    const editedWord = await this.wordsRepository.findOne({ id });
+
+    return editedWord;
   }
 
   async deleteWord(id: string): Promise<Word> {

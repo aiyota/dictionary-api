@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from "@nestjs/common";
 import { PartOfSpeech } from "../part-of-speech/part-of-speech.entity";
 import { Word } from "./word.entity";
 import { WordsService } from "./words.service";
@@ -37,6 +45,16 @@ export class WordsController {
     @Body("etymology") etymology: string,
   ): Promise<Word> {
     return this.wordsService.createWord(word, partOfSpeech, etymology);
+  }
+
+  @Patch("/:id")
+  editWord(
+    @Param("id") id: string,
+    @Body("word") word: string,
+    @Body("partOfSpeech") partOfSpeech: PartOfSpeech,
+    @Body("etymology") etymology: string,
+  ) {
+    return this.wordsService.editWord({ id, word, partOfSpeech, etymology });
   }
 
   @Delete("/:id")
