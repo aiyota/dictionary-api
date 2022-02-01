@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
   Unique,
 } from "typeorm";
+import { Source } from "../sources/source.entity";
 
 @Entity()
 @Unique("UQ_Definitions", ["word", "definition"])
@@ -22,6 +23,6 @@ export class Definition {
   @Column()
   definition: string;
 
-  @Column()
-  source: string;
+  @ManyToOne((_type) => Source, (source) => source.id, { eager: true })
+  source: Source;
 }
