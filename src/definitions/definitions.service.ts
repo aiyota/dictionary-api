@@ -1,4 +1,5 @@
 import { Injectable } from "@nestjs/common";
+import { makeRecord } from "../utils";
 import { Source } from "../sources/source.entity";
 import { Word } from "../words/word.entity";
 import { Definition } from "./definition.entity";
@@ -18,5 +19,26 @@ export class DefinitionsService {
       definitionText,
       source,
     );
+  }
+
+  async editDefinition({ id, definition, word, source }) {
+    await this.definitionsRepository.update(
+      id,
+      makeRecord({ definition, word, source }),
+    );
+    const editedDefinition = await this.definitionsRepository.findOne({ id });
+
+    return editedDefinition;
+  }
+
+  async deleteDefinition(id: string) {
+    const deletedDefinition = await this.definitionsRepository.findOne({ id });
+
+    if (!deletedDefinition)
+      throw new Error(`Definition with id ${id} does not exist`);
+
+    await this.definitionsRepository.delete(id);
+
+    return deletedDefinition;
   }
 }
