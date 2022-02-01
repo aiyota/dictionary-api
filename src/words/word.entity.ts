@@ -1,5 +1,12 @@
-import { PartOfSpeech } from "src/part-of-speech/part-of-speech.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Definition } from "../definitions/definition.entity";
+import { PartOfSpeech } from "../part-of-speech/part-of-speech.entity";
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 
 @Entity()
 export class Word {
@@ -14,5 +21,8 @@ export class Word {
   })
   partOfSpeech: PartOfSpeech;
 
+  @OneToMany((_type) => Definition, (definition) => definition.word, {
+    eager: true,
+  })
   definitions: string[];
 }
