@@ -7,6 +7,8 @@ import {
   Patch,
   Post,
 } from "@nestjs/common";
+import CreateSourceDto from "./dto/create-source.dto";
+import EditSourceDto from "./dto/edit-source.dto";
 import { Source } from "./source.entity";
 import { SourcesService } from "./sources.service";
 
@@ -20,16 +22,16 @@ export class SourcesController {
   }
 
   @Post()
-  createSource(@Body("source") source: string): Promise<Source> {
-    return this.sourcesService.createSource(source);
+  createSource(@Body() createSourceDto: CreateSourceDto): Promise<Source> {
+    return this.sourcesService.createSource(createSourceDto);
   }
 
   @Patch("/:id")
   editSource(
     @Param("id") id: string,
-    @Body("source") source: string,
+    @Body() editSourceDto: EditSourceDto,
   ): Promise<Source> {
-    return this.sourcesService.editSource({ id, source });
+    return this.sourcesService.editSource({ id, editSourceDto });
   }
 
   @Delete("/:id")

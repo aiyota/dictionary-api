@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { makeRecord } from "../utils";
+import CreateSourceDto from "./dto/create-source.dto";
 import { Source } from "./source.entity";
 import SourceRepository from "./source.repository";
 
@@ -10,7 +11,8 @@ export class SourcesService {
     return this.sourceRepository.find();
   }
 
-  async createSource(source: string): Promise<Source> {
+  async createSource(createSourceDto: CreateSourceDto): Promise<Source> {
+    const { source } = createSourceDto;
     const record = this.sourceRepository.create({ source });
 
     await this.sourceRepository.save(record);
@@ -18,7 +20,9 @@ export class SourcesService {
     return record;
   }
 
-  async editSource({ id, source }): Promise<Source> {
+  async editSource({ id, editSourceDto }): Promise<Source> {
+    const { source } = editSourceDto;
+
     await this.sourceRepository.update(id, makeRecord({ source }));
     const editedSource = await this.sourceRepository.findOne({ id });
 
