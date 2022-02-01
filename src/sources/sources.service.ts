@@ -1,4 +1,5 @@
 import { Injectable } from "@nestjs/common";
+import { makeRecord } from "../utils";
 import { Source } from "./source.entity";
 import SourceRepository from "./source.repository";
 
@@ -18,7 +19,7 @@ export class SourcesService {
   }
 
   async editSource({ id, source }): Promise<Source> {
-    await this.sourceRepository.update(id, { source });
+    await this.sourceRepository.update(id, makeRecord({ source }));
     const editedSource = await this.sourceRepository.findOne({ id });
 
     return editedSource;
