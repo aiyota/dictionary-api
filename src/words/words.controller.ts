@@ -29,8 +29,9 @@ export class WordsController {
   createWord(
     @Body("word") word: string,
     @Body("partOfSpeech") partOfSpeech: PartOfSpeech,
+    @Body("etymology") etymology: string,
   ): Promise<Word> {
-    return this.wordsService.createWord(word, partOfSpeech);
+    return this.wordsService.createWord(word, partOfSpeech, etymology);
   }
 
   @Delete("/:id")

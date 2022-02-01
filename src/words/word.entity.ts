@@ -6,9 +6,11 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  Unique,
 } from "typeorm";
 
 @Entity()
+@Unique("UQ_Words", ["word", "partOfSpeech"])
 export class Word {
   @PrimaryGeneratedColumn("uuid")
   id: string;
@@ -24,5 +26,8 @@ export class Word {
   @OneToMany((_type) => Definition, (definition) => definition.word, {
     eager: true,
   })
-  definitions: string[];
+  definitions: Definition[];
+
+  @Column()
+  etymology: string;
 }

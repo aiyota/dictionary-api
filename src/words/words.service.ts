@@ -15,8 +15,12 @@ export class WordsService {
     return this.wordsRepository.findOne({ id });
   }
 
-  createWord(word: string, partOfSpeech: PartOfSpeech): Promise<Word> {
-    return this.wordsRepository.createWord(word, partOfSpeech);
+  createWord(
+    word: string,
+    partOfSpeech: PartOfSpeech,
+    etymology: string,
+  ): Promise<Word> {
+    return this.wordsRepository.createWord(word, partOfSpeech, etymology);
   }
 
   async deleteWord(id: string) {

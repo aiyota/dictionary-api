@@ -4,10 +4,15 @@ import { Word } from "./word.entity";
 
 @EntityRepository(Word)
 export class WordsRepository extends Repository<Word> {
-  async createWord(word: string, partOfSpeech: PartOfSpeech): Promise<Word> {
+  async createWord(
+    word: string,
+    partOfSpeech: PartOfSpeech,
+    etymology: string,
+  ): Promise<Word> {
     const record = this.create({
       word,
       partOfSpeech,
+      etymology,
     });
 
     return await this.save(record);
