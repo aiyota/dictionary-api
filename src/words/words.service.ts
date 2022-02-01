@@ -15,6 +15,10 @@ export class WordsService {
     return this.wordsRepository.findOne({ id });
   }
 
+  searchWord(search: string): Promise<Word[]> {
+    return this.wordsRepository.searchWord(search);
+  }
+
   createWord(
     word: string,
     partOfSpeech: PartOfSpeech,

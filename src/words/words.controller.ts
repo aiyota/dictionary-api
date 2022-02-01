@@ -25,6 +25,11 @@ export class WordsController {
     return this.wordsService.getWord(id);
   }
 
+  @Get("/search/:search")
+  search(@Param("search") search: string): Promise<Word[]> {
+    return this.wordsService.searchWord(search);
+  }
+
   @Post()
   createWord(
     @Body("word") word: string,
