@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { makeRecord } from "src/utils";
 import { CreatePartOfSpeechDto } from "./dto/create-part-of-speech.dto";
 import { PartOfSpeech } from "./part-of-speech.entity";
@@ -33,6 +33,10 @@ export class PartOfSpeechService {
     const editedPartOfSpeech = await this.partOfSpeechRepository.findOne({
       id,
     });
+    if (!editedPartOfSpeech)
+      throw new NotFoundException(
+        `Part of Speech with id ${id} does not exist`,
+      );
 
     return editedPartOfSpeech;
   }
@@ -43,7 +47,9 @@ export class PartOfSpeechService {
     });
 
     if (!deletedPartOfSpeech)
-      throw new Error(`Part of Speech with id ${id} does not exist`);
+      throw new NotFoundException(
+        `Part of Speech with id ${id} does not exist`,
+      );
 
     await this.partOfSpeechRepository.delete(id);
 

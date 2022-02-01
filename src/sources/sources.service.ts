@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { makeRecord } from "../utils";
 import CreateSourceDto from "./dto/create-source.dto";
 import { Source } from "./source.entity";
@@ -25,6 +25,8 @@ export class SourcesService {
 
     await this.sourceRepository.update(id, makeRecord({ source }));
     const editedSource = await this.sourceRepository.findOne({ id });
+    if (!editedSource)
+      throw new NotFoundException(`Source with id ${id} does not exist`);
 
     return editedSource;
   }
@@ -32,7 +34,8 @@ export class SourcesService {
   async deleteSource(id: string): Promise<Source> {
     const deletedSource = await this.sourceRepository.findOne({ id });
 
-    if (!deletedSource) throw new Error(`Source with id ${id} does not exist`);
+    if (!deletedSource)
+      throw new NotFoundException(`Source with id ${id} does not exist`);
 
     await this.sourceRepository.delete(id);
 

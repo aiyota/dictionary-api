@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { makeRecord } from "../utils";
 import { Source } from "../sources/source.entity";
 import { Word } from "../words/word.entity";
@@ -27,6 +27,10 @@ export class DefinitionsService {
       makeRecord({ definition, word, source }),
     );
     const editedDefinition = await this.definitionsRepository.findOne({ id });
+    if (!editedDefinition)
+      throw new NotFoundException(
+        `Definition with the id of ${id} does not exist`,
+      );
 
     return editedDefinition;
   }
@@ -35,7 +39,7 @@ export class DefinitionsService {
     const deletedDefinition = await this.definitionsRepository.findOne({ id });
 
     if (!deletedDefinition)
-      throw new Error(`Definition with id ${id} does not exist`);
+      throw new NotFoundException(`Definition with id ${id} does not exist`);
 
     await this.definitionsRepository.delete(id);
 
