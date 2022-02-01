@@ -27,7 +27,7 @@ export class WordsService {
     return this.wordsRepository.createWord(word, partOfSpeech, etymology);
   }
 
-  async deleteWord(id: string) {
+  async deleteWord(id: string): Promise<Word> {
     const deletedWord = await this.wordsRepository.findOne({ id });
     if (!deletedWord) throw new Error(`Word with id ${id} does not exist`);
 

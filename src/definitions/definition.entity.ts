@@ -23,6 +23,9 @@ export class Definition {
   @Column()
   definition: string;
 
-  @ManyToOne((_type) => Source, (source) => source.id, { eager: true })
+  @ManyToOne((_type) => Source, (source) => source.id, {
+    eager: true,
+    onDelete: "CASCADE",
+  })
   source: Source;
 }
