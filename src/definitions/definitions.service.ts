@@ -4,19 +4,19 @@ import { Source } from "../sources/source.entity";
 import { Word } from "../words/word.entity";
 import { Definition } from "./definition.entity";
 import { DefinitionsRepository } from "./definitions.repository";
+import { CreateDefinitionDto } from "./dto/create-definition.dto";
 
 @Injectable()
 export class DefinitionsService {
   constructor(private definitionsRepository: DefinitionsRepository) {}
 
   async createDefinition(
-    word: Word,
-    definitionText: string,
-    source: Source,
+    createDefinitionDto: CreateDefinitionDto,
   ): Promise<Definition> {
+    const { word, definition, source } = createDefinitionDto;
     return this.definitionsRepository.createDefinition(
       word,
-      definitionText,
+      definition,
       source,
     );
   }

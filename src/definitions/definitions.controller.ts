@@ -3,6 +3,7 @@ import { Source } from "src/sources/source.entity";
 import { Word } from "../words/word.entity";
 import { Definition } from "./definition.entity";
 import { DefinitionsService } from "./definitions.service";
+import { CreateDefinitionDto } from "./dto/create-definition.dto";
 
 @Controller("definitions")
 export class DefinitionsController {
@@ -10,12 +11,9 @@ export class DefinitionsController {
 
   @Post()
   createDefinition(
-    @Body("definition") definition: string,
-    @Body("word") word: Word,
-    @Body("source") source: Source,
+    @Body() createDefinitionDto: CreateDefinitionDto,
   ): Promise<Definition> {
-    definition = definition.trim().replace(/\s+/gm, " ");
-    return this.definitionsService.createDefinition(word, definition, source);
+    return this.definitionsService.createDefinition(createDefinitionDto);
   }
 
   @Patch("/:id")
