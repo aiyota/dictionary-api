@@ -7,6 +7,8 @@ import {
   Patch,
   Post,
 } from "@nestjs/common";
+import { CreatePartOfSpeechDto } from "./dto/create-part-of-speech.dto";
+import { EditPartOfSpeechDto } from "./dto/edit-part-of-speech.dto";
 import { PartOfSpeech } from "./part-of-speech.entity";
 import { PartOfSpeechService } from "./part-of-speech.service";
 
@@ -21,17 +23,20 @@ export class PartOfSpeechController {
 
   @Post()
   createPartOfSpeech(
-    @Body("partOfSpeech") partOfSpeech: string,
+    @Body() createPartOfSpeechDto: CreatePartOfSpeechDto,
   ): Promise<PartOfSpeech> {
-    return this.partOfSpeechService.createPartOfSpeech(partOfSpeech);
+    return this.partOfSpeechService.createPartOfSpeech(createPartOfSpeechDto);
   }
 
   @Patch("/:id")
   editPartOfSpeech(
     @Param("id") id: string,
-    @Body("partOfSpeech") partOfSpeech: string,
+    @Body() editPartOfSpeechDto: EditPartOfSpeechDto,
   ): Promise<PartOfSpeech> {
-    return this.partOfSpeechService.editPartOfSpeech({ id, partOfSpeech });
+    return this.partOfSpeechService.editPartOfSpeech({
+      id,
+      editPartOfSpeechDto,
+    });
   }
 
   @Delete("/:id")

@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { makeRecord } from "src/utils";
+import { CreatePartOfSpeechDto } from "./dto/create-part-of-speech.dto";
 import { PartOfSpeech } from "./part-of-speech.entity";
 import { PartOfSpeechRepository } from "./part-of-speech.repository";
 
@@ -11,7 +12,11 @@ export class PartOfSpeechService {
     return this.partOfSpeechRepository.find();
   }
 
-  async createPartOfSpeech(partOfSpeech: string): Promise<PartOfSpeech> {
+  async createPartOfSpeech(
+    createPartOfSpeechDto: CreatePartOfSpeechDto,
+  ): Promise<PartOfSpeech> {
+    const { partOfSpeech } = createPartOfSpeechDto;
+
     const record = this.partOfSpeechRepository.create({
       partOfSpeech,
     });
@@ -21,7 +26,9 @@ export class PartOfSpeechService {
     return record;
   }
 
-  async editPartOfSpeech({ id, partOfSpeech }): Promise<PartOfSpeech> {
+  async editPartOfSpeech({ id, editPartOfSpeechDto }): Promise<PartOfSpeech> {
+    const { partOfSpeech } = editPartOfSpeechDto;
+
     await this.partOfSpeechRepository.update(id, makeRecord({ partOfSpeech }));
     const editedPartOfSpeech = await this.partOfSpeechRepository.findOne({
       id,
