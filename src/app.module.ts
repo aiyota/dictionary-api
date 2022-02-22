@@ -4,6 +4,7 @@ import { WordsModule } from "./words/words.module";
 import { PartOfSpeechModule } from "./part-of-speech/part-of-speech.module";
 import { DefinitionsModule } from "./definitions/definitions.module";
 import { SourcesModule } from "./sources/sources.module";
+import { PronunciationsModule } from './pronunciations/pronunciations.module';
 import config from "config/config";
 
 @Module({
@@ -13,6 +14,7 @@ import config from "config/config";
     PartOfSpeechModule,
     DefinitionsModule,
     SourcesModule,
+    PronunciationsModule,
   ],
 })
 export class AppModule {}
