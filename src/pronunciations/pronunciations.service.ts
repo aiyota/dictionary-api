@@ -1,4 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable } from "@nestjs/common";
+import { PronunciationRepository } from "./pronunciation.repository";
 
 @Injectable()
-export class PronunciationsService {}
+export class PronunciationsService {
+  constructor(private pronunciationRepository: PronunciationRepository) {}
+}
