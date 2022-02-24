@@ -16,8 +16,8 @@ export class Pronunciation {
   @Column()
   ipa: string;
 
-  @Column()
-  audioUrl: string;
+  @Column({ type: "varchar", nullable: true })
+  audioUrl!: string;
 
   @Column() // todo make regions entity
   region: string;
