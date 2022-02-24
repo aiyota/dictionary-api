@@ -1,4 +1,5 @@
 import { Injectable } from "@nestjs/common";
+import { makeRecord } from "src/utils";
 import { CreatePronunciationDto } from "./dto/create-pronunciation.dto";
 import { Pronunciation } from "./pronunciation.entity";
 import { PronunciationRepository } from "./pronunciation.repository";
@@ -10,10 +11,8 @@ export class PronunciationsService {
   async createPronunciation(
     createPronunciationDto: CreatePronunciationDto,
   ): Promise<Pronunciation> {
-    console.log(createPronunciationDto);
-    // save pronunciation
-
-    // test response
-    return new Pronunciation();
+    return this.pronunciationRepository.createPronunciation(
+      createPronunciationDto,
+    );
   }
 }

@@ -1,6 +1,7 @@
 import { IsNotEmpty } from "class-validator";
-import { Source } from "src/sources/source.entity";
-import { Word } from "src/words/word.entity";
+import { Region } from "../../regions/regions.entity";
+import { Source } from "../../sources/source.entity";
+import { Word } from "../../words/word.entity";
 
 export class CreatePronunciationDto {
   @IsNotEmpty()
@@ -10,10 +11,9 @@ export class CreatePronunciationDto {
   ipa: string;
 
   audioUrl?: string;
-  // todo make regions entity
 
   @IsNotEmpty()
-  region: string;
+  region: Region;
 
   @IsNotEmpty()
   source: Source;
