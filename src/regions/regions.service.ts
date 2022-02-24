@@ -7,6 +7,10 @@ import { Region } from "./regions.entity";
 export class RegionsService {
   constructor(private regionRepository: RegionRepository) {}
 
+  getAllRegions(): Promise<Region[]> {
+    return this.regionRepository.find();
+  }
+
   createRegion(createRegionDto: CreateRegionDto): Promise<Region> {
     return this.regionRepository.createRegion(createRegionDto);
   }

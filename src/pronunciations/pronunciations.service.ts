@@ -15,4 +15,8 @@ export class PronunciationsService {
       createPronunciationDto,
     );
   }
+
+  async getPronunciationsByWordId(wordId: string): Promise<Pronunciation[]> {
+    return this.pronunciationRepository.getPronunciationsByWordId(wordId);
+  }
 }

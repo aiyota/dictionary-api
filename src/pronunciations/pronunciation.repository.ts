@@ -12,4 +12,8 @@ export class PronunciationRepository extends Repository<Pronunciation> {
 
     return record;
   }
+
+  async getPronunciationsByWordId(wordId: string): Promise<Pronunciation[]> {
+    return this.find({ where: { word: wordId } });
+  }
 }
