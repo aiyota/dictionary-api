@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
   Unique,
 } from "typeorm";
+import { Pronunciation } from "src/pronunciations/pronunciation.entity";
 
 @Entity()
 @Unique("UQ_Words", ["word", "partOfSpeech"])
@@ -28,6 +29,11 @@ export class Word {
     eager: true,
   })
   definitions: Definition[];
+
+  @OneToMany((_type) => Pronunciation, (pronunciation) => pronunciation.word, {
+    eager: true,
+  })
+  pronunciations: Pronunciation[];
 
   @Column()
   etymology: string;

@@ -14,10 +14,6 @@ export class PronunciationsService {
     // save pronunciation
 
     // test response
-    return {
-      ...createPronunciationDto,
-      id: "mockId",
-      audioUrl: "http://mocksound.com/audo.mp3",
-    };
+    return new Pronunciation();
   }
 }
